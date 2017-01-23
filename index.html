@@ -1,0 +1,90 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+<head>
+  <title>Mo's Inventory Management Page</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/ngProgress.css">
+<link rel="stylesheet" href="css/toaster.css">
+<style>
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+display: none !important;
+}
+</style>
+</head>
+<body ng-cloak>
+  <div style="border:1px solid grey" class="container" ng-controller="ProductsCtrl">
+  <h1 style="padding:25px; border: 1px solid black;background-color: aquamarine">Welcome to Mo's Inventory Management Page</h1>
+  <h4 style="padding:15px;background-color: rgb(154,237,195)">This inventory management system uses the following tech stack for its implementation. <br/>
+  <ul style="list-style-type:upper-roman">
+    <li>MongoDB</li>
+    <li>NodeJS  (server-side)</li>
+    <li>AngularJS (client)</li>
+    <li>html</li>
+    <li>Bootstrap css</li>
+  </ul>
+  Use the form to enter product description, product SKU number and price to save, update or delete a product entry in this inventory management system.</h4>
+    <form name="Codenx" novalidate>
+    <table class="table table-bordered">
+      <thead>
+        <tr class="success">
+          <th>Product Description</th>
+          <th>Product SKU#</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="info">
+          <td><input class="form-control" ng-model="product.name" required="" placeholder="Product Name"></td>
+          <td><input class="form-control" ng-model="product.sku" placeholder="Stock Control Unit"></td>
+          <td><input class="form-control" ng-model="product.price" placeholder="Should be a number"></td>
+          <td><button class="btn btn-primary" ng-click="add(product)" ng-if="!product._id" type="submit" ng-disabled="!Codenx.$valid">Add Product</button>
+            <div class="btn-group">
+              <button class="btn btn-info" ng-click="update(product)" ng-if="product._id" type="submit">Update</button>
+              <button class="btn" ng-click="deselect()" ng-if="product._id">Clear</button>
+            </div>
+          </td>
+        </tr>
+        </table>
+        <h4 style="padding:15px" class="bg-info">List of products added so far</h4>
+        <table class="table table-bordered"> 
+        <thead>
+        <tr class="success">
+          <th>S.No</th>
+          <th>Product Description</th>
+          <th>Product SKU#</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="product in products">
+          <td>{{$index+1}}</td>
+          <td>{{product.name}}</td>
+          <td>{{product.sku}}</td>
+          <td>{{product.price}}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-info" ng-click="edit(product._id)">Edit</button>
+              <button class="btn btn-success" ng-click="remove(product)">Remove</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+  </div>
+
+<div data-loading></div>
+<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+
+<script src="js/angular.min.js"></script>
+<script src="js/angular-resource.min.js"></script>
+<script src="js/angular-animate.min.js"></script>
+<script src="js/ngProgress.min.js"></script>
+<script src="js/toaster.js"></script>
+<script src="app/app.js"></script>
+<script src="app/products.js"></script>
+</body>
+</html>
